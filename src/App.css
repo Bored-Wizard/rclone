@@ -51,100 +51,81 @@ width: inherit;
 }
 
 .loadingOverlay{
-display: flex;
-justify-content: center;
-align-items: center;
-height: 65px;
-background-color: rgba(60, 57, 87, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 65px;
+  background-color: rgba(60, 57, 87, 1);
 }
 .loader{
-height: 10px;
+  height: 10px;
 }
 .overlayLoader{
-position: absolute;
-top: 0px;
-left: 0px;
-z-index: 99;
-height: 100vh;
-width: 100vw;
-display: flex;
-justify-content: center;
-align-items: center;
-background-color: rgba(0,0,0,0.1);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 99;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.1);
 
 }
 
 .ratingOverlay{
-display: flex;
-flex-direction: column;
-justify-content: start;
-align-items: center;
-/* background-color: black; */
-min-height: 200px;
-width: 65px;
-position: absolute;
-right: 0;
-bottom: 20px;
-z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 200px;
+  width: 65px;
+  position: absolute;
+  right: 0;
+  bottom: 20px;
+  z-index: 99999;
 }
 
 .ratingOverlay .like{
-margin-bottom: 40px;
-color: white;
+  margin-bottom: 40px;
+  color: white;
 }
 
 .ratingOverlay .dislike{
-margin-bottom: 40px;
-color: white;
+  margin-bottom: 40px;
+  color: white;
 }
 
 .ratingOverlay .comment{
-margin-bottom: 40px;
-color: white;
+  margin-bottom: 40px;
+  color: white;
 }
 
 .ratingOverlay .description{
-margin-bottom: 40px;
-color: white;
+  margin-bottom: 40px;
+  color: white;
 }
 
 .ratingOverlay .activated{
-color: aqua;
+  color: aqua;
 }
 
 .UserDescriptionOverlay{
-display: flex;
-flex-direction: column;
-justify-content: end;
-align-items: start;
-/* background-color: black; */
-min-height: 200px;
-width: 75%;
-position: absolute;
-left: 0;
-bottom: 0;
-padding-left: 10px;
-padding-bottom: 10px;
-color: aliceblue;
-font-family: 'Courier New', Courier, monospace;
-font-size: small;
-z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  /* background-color: black; */
+  min-height: 200px;
+  width: 75%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  color: aliceblue;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: small;
+  z-index: 999;
 }
-
-/* section {
-height: 100vh;
-width: 100vw;
-scroll-snap-align: start;
-}
-
-.section1 {
-background-color: rgb(18, 0, 94);
-}
-
-.section2 {
-background-color: green;
-}
-
-.section3 {
-background-color: grey;
-} */
