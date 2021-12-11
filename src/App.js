@@ -234,12 +234,12 @@ const App = () => {
               <video onLoadedData={() => { handleHide(index) }} onClick={(e) => { handlePausePlay(String(index), e) }} className="videoo" autoPlay={false} height="100%" preload="auto" loop={true} >
                 <source src={item.link} type="video/mp4" />
               </video>
-              {/* <div className="ratingOverlay" >
+              <div className="ratingOverlay" >
                 <FaThumbsUp onClick={() => { handleLike(String(index)) }} id={`like${index}`} className="like" size={27} />
                 <FaThumbsDown onClick={() => { handleDislike(String(index)) }} id={`dislike${index}`} className="dislike" size={27} />
                 <FaRegComment onClick={() => { handleComment(String(index)) }} id={`comment${index}`} className="comment" size={27} />
                 <FaEllipsisH onClick={() => { handleDescription(String(index)) }} id={`description${index}`} className="description" size={27} />
-              </div> */}
+              </div>
               <div id={`userDescription${index}`} className="UserDescriptionOverlay" onClick={() => handleUserDescription(String(index))} >
                 <span>James Steven Donaldson (born May 7, 1998), better known by his online alias MrBeast (formerly MrBeast6000), is an American YouTuber, businessman, and philanthropist. He has been credited with pioneering a genre of YouTube videos that center on expensive stunts.</span>
               </div>
