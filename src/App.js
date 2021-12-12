@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./App.css";
+import "./App.scss";
 import useElementOnScreen from "./useElementOnScreen";
 import ReactLoading from 'react-loading';
 import { FaThumbsUp, FaThumbsDown, FaRegComment, FaEllipsisH } from "react-icons/fa";
@@ -57,7 +57,7 @@ const App = () => {
     if (ele) {
       if (e.detail === 1) {
         ele.children[0].paused ? ele.children[0]?.play() : ele.children[0]?.pause()
-        
+
       } else if (e.detail === 2) {
         ele.children[0].play()
         handleLike(String(index))
@@ -65,11 +65,9 @@ const App = () => {
 
     }
   }
-
   const handleHide = index => {
-    // let bufferVideoList = videoList;
-    // bufferVideoList[index].hide = false;
-    // setvideoList(bufferVideoList)
+    const ele = document.getElementById(`hide${index}`);
+    ele.className += "hide"
   }
 
   const handleLike = index => {
@@ -182,6 +180,10 @@ const App = () => {
     }
   }
 
+  const removeOverlay = index => {
+    console.log(targetRef[Number(index)])
+  }
+
   const handleUserDescription = index => {
     if (currentID) {
       const ele = document.getElementById(`userDescription${index}`)
@@ -203,7 +205,7 @@ const App = () => {
     if (window.ReactNativeWebView) {
       window.ReactNativeWebView.postMessage(JSON.stringify({
         type: "scroll",
-        message: {a: Math.floor(scrollHeight) - scrollTop - 65, b: clientHeight},
+        message: { a: Math.floor(scrollHeight) - scrollTop - 65, b: clientHeight },
         data: { like: false }
       }))
     }
@@ -223,6 +225,10 @@ const App = () => {
   useEffect(() => {
 
   }, [videoList, loadingVideo])
+
+  const handleVideoError = e => {
+    console.log({...e})
+  }
   return (
     <div className="Container noScrollbar" onScroll={e => handleScroll(e)} >
       {
@@ -231,7 +237,7 @@ const App = () => {
             <div
               ref={el => targetRef.current[index] = el}
               key={index} id={String(index)} className=" bg-gray-500 sn relative "  >
-              <video onLoadedData={() => { handleHide(index) }} onClick={(e) => { handlePausePlay(String(index), e) }} className="videoo" autoPlay={false} height="100%" preload="auto" loop={true} >
+              <video onError={e => handleVideoError(e)} onLoadedData={() => { handleHide(index) }} onClick={(e) => { handlePausePlay(String(index), e) }} className="videoo" autoPlay={false} height="100%" preload="auto" loop={true} >
                 <source src={item.link} type="video/mp4" />
               </video>
               <div className="ratingOverlay" >
@@ -243,7 +249,9 @@ const App = () => {
               <div id={`userDescription${index}`} className="UserDescriptionOverlay" onClick={() => handleUserDescription(String(index))} >
                 <span>James Steven Donaldson (born May 7, 1998), better known by his online alias MrBeast (formerly MrBeast6000), is an American YouTuber, businessman, and philanthropist. He has been credited with pioneering a genre of YouTube videos that center on expensive stunts.</span>
               </div>
-
+              <div id={`hide${index}`}  className="upperBoss is-loading " >
+                <div className="userDes"></div>
+              </div> 
             </div>
           )
         })
