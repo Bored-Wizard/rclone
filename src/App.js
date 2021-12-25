@@ -295,9 +295,9 @@ const App = () => {
               <div id={`hide${index}`} className="upperBoss is-loading " >
                 <div className="userDes"></div>
               </div>
-              <div className="videoLoading" id={`vidLoad${index}`}>
+              {/* <div className="videoLoading" id={`vidLoad${index}`}>
                 <ReactLoading type="bubbles" color="gray" className="loader" width={"80px"} />
-              </div>
+              </div> */}
             </div>
           )
         })
