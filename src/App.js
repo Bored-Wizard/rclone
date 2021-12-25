@@ -16,18 +16,6 @@ const App = () => {
       link: "https://testreels.000webhostapp.com/249802635_453557342789743_3932284837316691868_n.mp4",
       hide: true
     },
-    2: {
-      shouldPlay: false,
-      link: "https://testreels.000webhostapp.com/249802635_453557342789743_3932284837316691868_n.mp4",
-      hide: true
-    },
-    3: {
-      shouldPlay: false,
-      link: "https://testreels.000webhostapp.com/257733951_4815316655187664_3402811816715211412_n.mp4",
-      hide: true
-    },
-
-
   })
   let videoLink = [
     "https://testreels.000webhostapp.com/248366881_139505101746713_1972683961191649361_n.mp4",
@@ -248,7 +236,7 @@ const App = () => {
             <div
               ref={el => targetRef.current[index] = el}
               key={index} id={String(index)} className=" bg-gray-500 sn relative "  >
-              <video onError={e => handleVideoError(e)} onLoadedData={() => { handleHide(index) }} onClick={(e) => { handlePausePlay(String(index), e) }} className="videoo" autoPlay={false} height="100%" preload="auto" loop={true} >
+              <video onError={e => handleVideoError(e)} onLoadStart={() => {}} onLoadedDataCapture={() => {}} onLoadedData={() => { handleHide(index) }} onClick={(e) => { handlePausePlay(String(index), e) }} className="videoo" autoPlay={false} height="100%" preload="auto" loop={true} >
                 <source src={item.link} type="video/mp4" />
               </video>
               <div className="ratingOverlay" >
