@@ -287,7 +287,7 @@ const App = () => {
                   </div>
                   <span className="userNameArea" onClick={() => handleUserDescription(String(index))}  >Sujan barman</span>
                   <div id={`userFoloweArea${index}`} className="userFoloweArea" onClick={() => handleFollowhm(String(index))} >
-                    Following
+                    Follow
                   </div>
                 </div>
                 <span > James Steven Donaldson (born May 7, 1998), better known by his online alias MrBeast (formerly MrBeast6000), is an American YouTuber, businessman, and philanthropist.</span>
@@ -295,9 +295,9 @@ const App = () => {
               <div id={`hide${index}`} className="upperBoss is-loading " >
                 <div className="userDes"></div>
               </div>
-              {/* <div className="videoLoading" id={`vidLoad${index}`}>
-                <ReactLoading type="bubbles" color="gray" className="loader" width={"80px"} />
-              </div> */}
+              <div id={`vidLoad${index}`}>
+                {/* <ReactLoading type="bubbles" color="gray" className="loader" width={"80px"} /> */}
+              </div>
             </div>
           )
         })
