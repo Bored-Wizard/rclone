@@ -13,23 +13,34 @@ const App = () => {
     },
     1: {
       shouldPlay: false,
-      link: "https://www.w3schools.com/html/mov_bbb.mp4",
+      link: "https://testreels.000webhostapp.com/249802635_453557342789743_3932284837316691868_n.mp4",
       hide: true
     },
     2: {
       shouldPlay: false,
-      link: "https://www.w3schools.com/html/mov_bbb.mp4",
+      link: "https://testreels.000webhostapp.com/249802635_453557342789743_3932284837316691868_n.mp4",
       hide: true
     },
     3: {
       shouldPlay: false,
-      link: "https://www.w3schools.com/html/mov_bbb.mp4",
+      link: "https://testreels.000webhostapp.com/257733951_4815316655187664_3402811816715211412_n.mp4",
       hide: true
     },
 
 
   })
-  //https://www.w3schools.com/html/mov_bbb.mp4
+  let videoLink = [
+    "https://testreels.000webhostapp.com/248366881_139505101746713_1972683961191649361_n.mp4",
+    "https://testreels.000webhostapp.com/249802635_453557342789743_3932284837316691868_n.mp4",
+    "https://testreels.000webhostapp.com/257733951_4815316655187664_3402811816715211412_n.mp4",
+    "https://testreels.000webhostapp.com/260511436_608874900530281_7764772624404776049_n.mp4",
+    "https://testreels.000webhostapp.com/260823702_191446829853682_7879365633916055829_n.mp4",
+    "https://testreels.000webhostapp.com/262562752_623473069071289_6627225333917474758_n.mp4",
+    "https://testreels.000webhostapp.com/262793529_3022087951337617_6478478748977900225_n.mp4",
+    "https://testreels.000webhostapp.com/262793529_3022087951337617_6478478748977900225_n(1).mp4",
+    "https://testreels.000webhostapp.com/264022308_132475985877741_2537757629487660288_n.mp4",
+    "https://testreels.000webhostapp.com/264356435_293075089409551_402992719722109385_n.mp4",
+  ]
   const targetRef = useRef([]);
   const currentID = useElementOnScreen({
     root: null,
@@ -214,7 +225,7 @@ const App = () => {
       let bufferVideoList = videoList;
       bufferVideoList[keyq] = {
         shouldPlay: false,
-        link: "https://www.w3schools.com/html/mov_bbb.mp4",
+        link: videoLink[Math.floor(Math.random() * 10)],
         hide: true
       }
       setvideoList(bufferVideoList)
@@ -227,7 +238,7 @@ const App = () => {
   }, [videoList, loadingVideo])
 
   const handleVideoError = e => {
-    console.log({...e})
+    console.log({...e});
   }
   return (
     <div className="Container noScrollbar" onScroll={e => handleScroll(e)} >
