@@ -246,9 +246,8 @@ const App = () => {
   //   }
   // }
 
-  const handleFollow = (index) => {
+  const handleFollowhm = (index) => {
     const ele = document.getElementById(`userFoloweArea${index}`)
-    console.log("plk")
     if (ele) {
       if(ele.innerText === "Following"){
         ele.innerText = "Follow"
@@ -281,19 +280,17 @@ const App = () => {
                   <ReactLoading type="cylon" color="white" className="loader" width={"20px"} />
                 </div>
               </div>
-              <div id={`userDescription${index}`} className="UserDescriptionOverlay" onClick={() => handleUserDescription(String(index))} >
+              <div id={`userDescription${index}`} className="UserDescriptionOverlay">
                 <div className="userDataArea" >
-                  <div className="userProfileImageArea" >
+                  <div className="userProfileImageArea" onClick={() => handleUserDescription(String(index))}  >
                     <img src="https://www.w3schools.com/images/lamp.jpg" alt="" height="25px" width="25px"></img>
                   </div>
-                  <span className="userNameArea" >Sujan barman</span>
-                  <div id={`userFoloweArea${index}`} className="userFoloweArea" onClick={handleFollow(String(index))} >
-                    <span onClick={handleFollow(String(index))}  >
-                      Following
-                    </span>
-                  </div>
+                  <span className="userNameArea" onClick={() => handleUserDescription(String(index))}  >Sujan barman</span>
+                  <button id={`userFoloweArea${index}`} className="userFoloweArea" onClick={() => handleFollowhm(String(index))} >
+                    Following
+                  </button>
                 </div>
-                <span>James Steven Donaldson (born May 7, 1998), better known by his online alias MrBeast (formerly MrBeast6000), is an American YouTuber, businessman, and philanthropist.</span>
+                <span > James Steven Donaldson (born May 7, 1998), better known by his online alias MrBeast (formerly MrBeast6000), is an American YouTuber, businessman, and philanthropist.</span>
               </div>
               <div id={`hide${index}`} className="upperBoss is-loading " >
                 <div className="userDes"></div>
