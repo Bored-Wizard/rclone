@@ -286,9 +286,9 @@ const App = () => {
                     <img src="https://www.w3schools.com/images/lamp.jpg" alt="" height="25px" width="25px"></img>
                   </div>
                   <span className="userNameArea" onClick={() => handleUserDescription(String(index))}  >Sujan barman</span>
-                  <button id={`userFoloweArea${index}`} className="userFoloweArea" onClick={() => handleFollowhm(String(index))} >
+                  <div id={`userFoloweArea${index}`} className="userFoloweArea" onClick={() => handleFollowhm(String(index))} >
                     Following
-                  </button>
+                  </div>
                 </div>
                 <span > James Steven Donaldson (born May 7, 1998), better known by his online alias MrBeast (formerly MrBeast6000), is an American YouTuber, businessman, and philanthropist.</span>
               </div>
