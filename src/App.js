@@ -16,7 +16,6 @@ const App = () => {
   }, targetRef)
 
   const addVideo = async () => {
-    console.log("fired")
     if (videoLink.length <= Object.keys(videoList).length) {
       let videoDataResponse = await getVideo();
       let bufferVideo = [];
@@ -101,6 +100,13 @@ const App = () => {
       })
     }
     if (currentID === String(Object.keys(videoList).length - 1)) {
+      if (window.ReactNativeWebView) {
+        window.ReactNativeWebView.postMessage(JSON.stringify({
+          type: "currentVidId",
+          message: "userDescription Clicked",
+          data: {currentID}
+        }))
+      }
       if (videoLink.length > 0) {
         // if(videoLink)
         let bufferVideoList = videoList;
