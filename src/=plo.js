@@ -3,11 +3,32 @@ import "./App.scss";
 import useElementOnScreen from "./useElementOnScreen";
 import ReactLoading from 'react-loading';
 import { FaThumbsUp, FaThumbsDown, FaRegComment, FaEllipsisH } from "react-icons/fa";
-import { getVideo } from "./api";
 
 const App = () => {
-  const [videoList, setvideoList] = useState({});
-  const [videoLink, setvideoLink] = useState([]);
+  const [videoList, setvideoList] = useState({
+    0: {
+      shuldPlay: false,
+      link: "https://www.w3schools.com/html/mov_bbb.mp4",
+      hide: true
+    },
+    1: {
+      shouldPlay: false,
+      link: "https://testreels.000webhostapp.com/249802635_453557342789743_3932284837316691868_n.mp4",
+      hide: true
+    },
+  })
+  let videoLink = [
+    "https://testreels.000webhostapp.com/248366881_139505101746713_1972683961191649361_n.mp4",
+    "https://testreels.000webhostapp.com/249802635_453557342789743_3932284837316691868_n.mp4",
+    "https://testreels.000webhostapp.com/257733951_4815316655187664_3402811816715211412_n.mp4",
+    "https://testreels.000webhostapp.com/260511436_608874900530281_7764772624404776049_n.mp4",
+    "https://testreels.000webhostapp.com/260823702_191446829853682_7879365633916055829_n.mp4",
+    "https://testreels.000webhostapp.com/262562752_623473069071289_6627225333917474758_n.mp4",
+    "https://testreels.000webhostapp.com/262793529_3022087951337617_6478478748977900225_n.mp4",
+    "https://testreels.000webhostapp.com/262793529_3022087951337617_6478478748977900225_n(1).mp4",
+    "https://testreels.000webhostapp.com/264022308_132475985877741_2537757629487660288_n.mp4",
+    "https://testreels.000webhostapp.com/264356435_293075089409551_402992719722109385_n.mp4",
+  ]
   const targetRef = useRef([]);
   const currentID = useElementOnScreen({
     root: null,
@@ -15,103 +36,7 @@ const App = () => {
     threshold: 0.3
   }, targetRef)
 
-  const addVideo = async () => {
-    console.log("fired")
-    if (videoLink.length <= Object.keys(videoList).length) {
-      let videoDataResponse = await getVideo();
-      let bufferVideo = [];
-      if (videoDataResponse) {
-        videoDataResponse.data.map(item => {
-          let videoDataObject = {
-            shuldPlay: false,
-            link: item.video_path,
-            hide: true,
-            data: item
-          }
-          if (!videoLink.includes(videoDataObject)) {
-            bufferVideo.push(videoDataObject);
-          }
-        })
-      }
-      setvideoLink(bufferVideo);
-    }
-  }
-
   useEffect(() => {
-    addVideo()
-  }, [])
-
-  useEffect(() => {
-    if (currentID === null) {
-      setvideoList({
-        0: {
-          "shuldPlay": false,
-          "link": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/posts/videos/1640451475.mp4",
-          "hide": true,
-          "data": {
-            "id": 12,
-            "name": "Demo Post",
-            "description": "My test video",
-            "category_id": 4,
-            "video": "1640451475.mp4",
-            "video_path": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/posts/videos/1640451475.mp4",
-            "video_preview": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/previews/1640451475.jpg",
-            "likes_on_post": 0,
-            "comments_on_post": 0,
-            "User": {
-              "id": 6,
-              "full_name": "Test",
-              "username": "test",
-              "profile_image": "",
-              "profession": null
-            },
-            "created_at": 1640451475,
-            "updated_at": 1640451475,
-            "is_liked": false,
-            "is_saved": false
-          }
-        },
-        1: {
-          "shuldPlay": false,
-          "link": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/posts/videos/1640451550.mp4",
-          "hide": true,
-          "data": {
-            "id": 14,
-            "name": "Demo Post",
-            "description": "My test video",
-            "category_id": 4,
-            "video": "1640451550.mp4",
-            "video_path": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/posts/videos/1640451550.mp4",
-            "video_preview": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/previews/1640451550.jpg",
-            "likes_on_post": 0,
-            "comments_on_post": 0,
-            "User": {
-              "id": 6,
-              "full_name": "Test",
-              "username": "test",
-              "profile_image": "",
-              "profession": null
-            },
-            "created_at": 1640451550,
-            "updated_at": 1640451550,
-            "is_liked": false,
-            "is_saved": false
-          }
-        }
-      })
-    }
-    if (currentID === String(Object.keys(videoList).length - 1)) {
-      if (videoLink.length > 0) {
-        // if(videoLink)
-        let bufferVideoList = videoList;
-        let rand = Math.floor(Math.random() * videoLink.length)
-        bufferVideoList[Object.keys(videoList).length + 1] = videoLink[rand];
-        setvideoList(bufferVideoList)
-      }
-      if(videoLink.length <= Object.keys(videoList).length){
-        addVideo();
-      }
-    }
     if (currentID) {
       const ele = document.getElementById(String(currentID))
       if (ele) {
@@ -124,7 +49,7 @@ const App = () => {
         ele.children[0].pause()
       }
     }
-  }, [targetRef, currentID, videoList])
+  }, [targetRef, currentID])
 
   const handlePausePlay = (index, e) => {
     const ele = document.getElementById(index)
@@ -197,7 +122,7 @@ const App = () => {
             window.ReactNativeWebView.postMessage(JSON.stringify({
               type: "dislike",
               message: "dislike unClicked",
-              data: { dislike: false, data: videoList[Number(index)] }
+              data: { dislike: false }
             }))
           }
         } else {
@@ -209,7 +134,7 @@ const App = () => {
                 window.ReactNativeWebView.postMessage(JSON.stringify({
                   type: "like",
                   message: "like unClicked",
-                  data: { dislike: false, data: videoList[Number(index)] }
+                  data: { dislike: false }
                 }))
               }
             }
@@ -219,7 +144,7 @@ const App = () => {
             window.ReactNativeWebView.postMessage(JSON.stringify({
               type: "dislike",
               message: "dislike Clicked",
-              data: { dislike: true, data: videoList[Number(index)] }
+              data: { dislike: true }
             }))
           }
         }
@@ -235,7 +160,7 @@ const App = () => {
           window.ReactNativeWebView.postMessage(JSON.stringify({
             type: "comments",
             message: "comments Clicked",
-            data: {data: videoList[Number(index)]}
+            data: {}
           }))
         }
       }
@@ -250,7 +175,7 @@ const App = () => {
           window.ReactNativeWebView.postMessage(JSON.stringify({
             type: "description",
             message: "description Clicked",
-            data: {data: videoList[Number(index)]}
+            data: {}
           }))
         }
       }
@@ -269,7 +194,7 @@ const App = () => {
           window.ReactNativeWebView.postMessage(JSON.stringify({
             type: "userDescription",
             message: "userDescription Clicked",
-            data: {data: videoList[Number(index)]}
+            data: {}
           }))
         }
       }
@@ -277,27 +202,27 @@ const App = () => {
   }
 
   const [loadingVideo, setloadingVideo] = useState(false)
-  // const handleScroll = e => {
-  //   const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-  //   if (window.ReactNativeWebView) {
-  //     window.ReactNativeWebView.postMessage(JSON.stringify({
-  //       type: "scroll",
-  //       message: { a: Math.floor(scrollHeight) - scrollTop - 65, b: clientHeight },
-  //       data: { like: false }
-  //     }))
-  //   }
-  //   if (scrollHeight - scrollTop - 65 < clientHeight) {
-  //     let keyq = Object.keys(videoList).length + 1
-  //     let bufferVideoList = videoList;
-  //     bufferVideoList[keyq] = {
-  //       shouldPlay: false,
-  //       link: videoLink[Math.floor(Math.random() * 10)],
-  //       hide: true
-  //     }
-  //     setvideoList(bufferVideoList)
-  //     setloadingVideo(!loadingVideo)
-  //   }
-  // }
+  const handleScroll = e => {
+    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(JSON.stringify({
+        type: "scroll",
+        message: { a: Math.floor(scrollHeight) - scrollTop - 65, b: clientHeight },
+        data: { like: false }
+      }))
+    }
+    if (scrollHeight - scrollTop - 65 === clientHeight) {
+      let keyq = Object.keys(videoList).length + 1
+      let bufferVideoList = videoList;
+      bufferVideoList[keyq] = {
+        shouldPlay: false,
+        link: videoLink[Math.floor(Math.random() * videoLink.length)],
+        hide: true
+      }
+      setvideoList(bufferVideoList)
+      setloadingVideo(!loadingVideo)
+    }
+  }
 
   useEffect(() => {
 
@@ -324,19 +249,19 @@ const App = () => {
   const handleFollowhm = (index) => {
     const ele = document.getElementById(`userFoloweArea${index}`)
     if (ele) {
-      if (ele.innerText === "Following") {
+      if(ele.innerText === "Following"){
         ele.innerText = "Follow"
-      } else if (ele.innerText === "Follow") {
+      }else if(ele.innerText === "Follow"){
         ele.innerText = "Following"
       }
     }
   }
 
   const handleVideoError = e => {
-    console.log(e);
+    console.log({ ...e });
   }
   return (
-    <div className="Container noScrollbar" >
+    <div className="Container noScrollbar" onScroll={e => handleScroll(e)} >
       {
         Object.values(videoList).map((item, index) => {
           return (
