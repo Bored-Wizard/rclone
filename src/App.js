@@ -34,6 +34,7 @@ const App = () => {
       let bufferObject = {};
       if (e) {
         for (let i = 0; i < e.length; i++) {
+          alert(e)
           bufferObject[i] = e[i]
         }
       }
