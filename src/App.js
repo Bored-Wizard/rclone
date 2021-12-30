@@ -3,7 +3,6 @@ import "./App.scss";
 import useElementOnScreen from "./useElementOnScreen";
 import ReactLoading from 'react-loading';
 import { FaThumbsUp, FaThumbsDown, FaRegComment, FaEllipsisH } from "react-icons/fa";
-import { getVideo } from "./api";
 
 const App = () => {
   const [videoList, setvideoList] = useState({});
@@ -21,96 +20,30 @@ const App = () => {
     }
   }, [])
 
-  const addVideo = async () => {
-    if (videoLink.length <= Object.keys(videoList).length) {
-      let videoDataResponse = await getVideo();
-      let bufferVideo = [];
-      if (videoDataResponse) {
-        videoDataResponse.data.map(item => {
-          let videoDataObject = {
-            shuldPlay: false,
-            link: item.video_path,
-            hide: true,
-            data: item
-          }
-          if (!videoLink.includes(videoDataObject)) {
-            bufferVideo.push(videoDataObject);
-          }
-        })
-      }
-      setvideoLink(bufferVideo);
-    }
-  }
-
   useEffect(() => {
-    addVideo()
+    window.initialFunction = (e) => {
+      let bufferObject = {};
+      if (e) {
+        for (let i = 0; i < 2; i++) {
+          bufferObject[i] = {
+            "shuldPlay": false,
+            "link": e[i].video_path,
+            "hide": true,
+            "data": e[i]
+          }
+        }
+      }
+      setvideoList(bufferObject);
+    }
   }, [])
 
   useEffect(() => {
-    if (currentID === null) {
-      setvideoList({
-        0: {
-          "shuldPlay": false,
-          "link": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/posts/videos/1640451475.mp4",
-          "hide": true,
-          "data": {
-            "id": 12,
-            "name": "Demo Post",
-            "description": "My test video",
-            "category_id": 4,
-            "video": "1640451475.mp4",
-            "video_path": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/posts/videos/1640451475.mp4",
-            "video_preview": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/previews/1640451475.jpg",
-            "likes_on_post": 0,
-            "comments_on_post": 0,
-            "User": {
-              "id": 6,
-              "full_name": "Test",
-              "username": "test",
-              "profile_image": "",
-              "profession": null
-            },
-            "created_at": 1640451475,
-            "updated_at": 1640451475,
-            "is_liked": false,
-            "is_saved": false
-          }
-        },
-        1: {
-          "shuldPlay": false,
-          "link": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/posts/videos/1640451550.mp4",
-          "hide": true,
-          "data": {
-            "id": 14,
-            "name": "Demo Post",
-            "description": "My test video",
-            "category_id": 4,
-            "video": "1640451550.mp4",
-            "video_path": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/posts/videos/1640451550.mp4",
-            "video_preview": "https://talentbuzz-assets.s3.ap-south-1.amazonaws.com/user/previews/1640451550.jpg",
-            "likes_on_post": 0,
-            "comments_on_post": 0,
-            "User": {
-              "id": 6,
-              "full_name": "Test",
-              "username": "test",
-              "profile_image": "",
-              "profession": null
-            },
-            "created_at": 1640451550,
-            "updated_at": 1640451550,
-            "is_liked": false,
-            "is_saved": false
-          }
-        }
-      })
-    }
     if (currentID === String(Object.keys(videoList).length - 1)) {
       if (window.ReactNativeWebView) {
         window.ReactNativeWebView.postMessage(JSON.stringify({
           type: "currentVidId",
           message: "userDescription Clicked",
-          data: {currentID}
+          data: { currentID }
         }))
       }
       if (videoLink.length > 0) {
@@ -120,8 +53,7 @@ const App = () => {
         bufferVideoList[Object.keys(videoList).length + 1] = videoLink[rand];
         setvideoList(bufferVideoList)
       }
-      if(videoLink.length <= Object.keys(videoList).length){
-        addVideo();
+      if (videoLink.length <= Object.keys(videoList).length) {
       }
     }
     if (currentID) {
@@ -247,7 +179,7 @@ const App = () => {
           window.ReactNativeWebView.postMessage(JSON.stringify({
             type: "comments",
             message: "comments Clicked",
-            data: {data: videoList[Number(index)]}
+            data: { data: videoList[Number(index)] }
           }))
         }
       }
@@ -262,7 +194,7 @@ const App = () => {
           window.ReactNativeWebView.postMessage(JSON.stringify({
             type: "description",
             message: "description Clicked",
-            data: {data: videoList[Number(index)]}
+            data: { data: videoList[Number(index)] }
           }))
         }
       }
@@ -281,7 +213,7 @@ const App = () => {
           window.ReactNativeWebView.postMessage(JSON.stringify({
             type: "userDescription",
             message: "userDescription Clicked",
-            data: {data: videoList[Number(index)]}
+            data: { data: videoList[Number(index)] }
           }))
         }
       }
