@@ -15,6 +15,12 @@ const App = () => {
     threshold: 0.3
   }, targetRef)
 
+  useEffect(() => {
+    window.windowFunction = (e) => {
+      alert(e)
+    }
+  }, [])
+
   const addVideo = async () => {
     if (videoLink.length <= Object.keys(videoList).length) {
       let videoDataResponse = await getVideo();

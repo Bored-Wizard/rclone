@@ -8,7 +8,7 @@ let config = {
     }
 }
 
-const baseUrl = "http://65.1.209.132:8080/"
+const baseUrl = "https://65.1.209.132:8080/"
 
 export const getVideo = async () => {
     try{
