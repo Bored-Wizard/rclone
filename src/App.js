@@ -7,6 +7,7 @@ import { FaThumbsUp, FaThumbsDown, FaRegComment, FaEllipsisH } from "react-icons
 const App = () => {
   const [videoList, setvideoList] = useState({});
   const [videoLink, setvideoLink] = useState([]);
+  const [change, setchange] = useState(false)
   const targetRef = useRef([]);
   const currentID = useElementOnScreen({
     root: null,
@@ -16,7 +17,15 @@ const App = () => {
 
   useEffect(() => {
     window.windowFunction = (e) => {
-      alert(e)
+      let bufferObject = {};
+      if (e) {
+        for (let i = 0; i < e.length; i++) {
+          bufferObject[i + e.length] = e[i]
+        }
+      }
+      console.log(bufferObject)
+      setvideoList(bufferObject);
+      setchange(!change)
     }
   }, [])
 
@@ -24,21 +33,22 @@ const App = () => {
     window.initialFunction = (e) => {
       let bufferObject = {};
       if (e) {
-        for (let i = 0; i < 2; i++) {
-          bufferObject[i] = {
-            "shuldPlay": false,
-            "link": e[i].video_path,
-            "hide": true,
-            "data": e[i]
-          }
+        for (let i = 0; i < e.length; i++) {
+          bufferObject[i] = e[i]
         }
       }
-      alert("success")
+      console.log(bufferObject)
       setvideoList(bufferObject);
+      setchange(!change)
     }
   }, [])
 
   useEffect(() => {
+    
+  }, [])
+
+  useEffect(() => {
+    console.log(currentID)
     if (currentID === String(Object.keys(videoList).length - 1)) {
       if (window.ReactNativeWebView) {
         window.ReactNativeWebView.postMessage(JSON.stringify({
@@ -284,6 +294,7 @@ const App = () => {
     <div className="Container noScrollbar" >
       {
         Object.values(videoList).map((item, index) => {
+          console.log(item)
           return (
             <div
               ref={el => targetRef.current[index] = el}
